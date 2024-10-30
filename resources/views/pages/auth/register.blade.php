@@ -14,19 +14,16 @@
         </div>
 
         <div class="card-body">
-            <form method="POST">
+            <form method="POST" action="{{route('register')}}">
+                @csrf
                 <div class="form-group">
-                    <label for="frist_name">First Name</label>
-                    <input id="frist_name" type="text" class="form-control" name="frist_name" autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="last_name">Last Name</label>
-                    <input id="last_name" type="text" class="form-control" name="last_name">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" class="form-control" name="name" autofocus value="{{old('name')}}">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email">
+                    <input id="email" type="email" class="form-control" name="email" value="{{old('email')}}">
                     <div class="invalid-feedback">
                     </div>
                 </div>
@@ -34,16 +31,29 @@
 
                 <div class="form-group">
                     <label for="password" class="d-block">Password</label>
-                    <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
+                    <input id="password" type="password"
+                        class="form-control pwstrength @error('password') is-invalid @enderror" data-indicator="pwindicator"
                         name="password">
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     <div id="pwindicator" class="pwindicator">
                         <div class="bar"></div>
                         <div class="label"></div>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label for="password2" class="d-block">Password Confirmation</label>
-                    <input id="password2" type="password" class="form-control" name="password-confirm">
+                    <label for="password" class="d-block">Password Confirmation</label>
+                    <input id="password" type="password" class="form-control @error('password_confirm') is-invalid @enderror"
+                        name="password_confirm">
+                        @error('password_confirm')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                 </div>
 
                 <div class="form-group">
